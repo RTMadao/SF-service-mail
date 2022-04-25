@@ -23,7 +23,7 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/change_password/new_user/{username}")
+    @GetMapping("new_user/change_password/{username}")
     public ResponseEntity sendNewUserChangePasswordEmail(@PathVariable("username") String username){
 
         try {
