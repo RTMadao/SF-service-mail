@@ -1,6 +1,6 @@
 package com.salcedoFawcett.services.mailService;
 
-import com.salcedoFawcett.services.mailService.domain.model.SetNewUserPasswordMessage;
+import com.salcedoFawcett.services.mailService.domain.model.message.SetNewUserPasswordMessage;
 import com.salcedoFawcett.services.mailService.domain.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

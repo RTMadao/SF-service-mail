@@ -1,11 +1,11 @@
-package com.salcedoFawcett.services.mailService.domain.model;
+package com.salcedoFawcett.services.mailService.domain.model.message;
 
-public class SetNewUserPasswordMessage extends Message {
+public class ChangePasswordMessage extends Message {
 
     private String user;
     private String url;
 
-    public SetNewUserPasswordMessage(String title, String addressee, String user, String url) {
+    public ChangePasswordMessage(String title, String addressee, String user, String url) {
         super(title, addressee);
         this.user = user;
         this.url = url;
@@ -59,5 +59,15 @@ public class SetNewUserPasswordMessage extends Message {
     @Override
     public void setAddressee(String addressee) {
         this.addressee = addressee;
+    }
+    @Override
+    public boolean isAttachment() {return false;}
+    @Override
+    public String getAttachmentPath() {
+        return this.attachmentPath;
+    }
+    @Override
+    public String getFileName() {
+        return null;
     }
 }

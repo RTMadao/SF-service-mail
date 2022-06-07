@@ -1,17 +1,12 @@
 package com.salcedoFawcett.services.mailService.web.controller;
 
-import com.salcedoFawcett.services.mailService.client.UserClient;
-import com.salcedoFawcett.services.mailService.domain.model.ChangePasswordMessage;
-import com.salcedoFawcett.services.mailService.domain.model.SecureUser;
-import com.salcedoFawcett.services.mailService.domain.model.SetNewUserPasswordMessage;
+import com.salcedoFawcett.services.mailService.domain.model.EconomicProposal;
+import com.salcedoFawcett.services.mailService.domain.model.ElectronicDocumentEmailInfo;
 import com.salcedoFawcett.services.mailService.domain.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -38,6 +33,21 @@ public class EmailController {
         }
     }
 
+    @PostMapping("electronic_document")
+    public ResponseEntity sendElectronicDocument(@RequestBody ElectronicDocumentEmailInfo info){
+
+        try {
+            emailService.sendElectronicDocument(info);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
     @GetMapping("/change_password/{username}")
     public ResponseEntity sendChangePasswordEmail(@PathVariable("username") String username){
         try {
@@ -52,4 +62,17 @@ public class EmailController {
         }
     }
 
+    @PostMapping("/send/economical_proposal/to_client")
+    public ResponseEntity sendEconomicProposalEmail(@RequestBody  EconomicProposal proposal){
+        try {
+            emailService.sendEconomicProposalEmail(proposal);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
 }

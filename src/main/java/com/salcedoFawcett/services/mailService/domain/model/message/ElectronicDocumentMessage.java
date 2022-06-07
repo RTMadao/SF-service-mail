@@ -1,14 +1,22 @@
-package com.salcedoFawcett.services.mailService.domain.model;
+package com.salcedoFawcett.services.mailService.domain.model.message;
 
-public class ChangePasswordMessage extends Message{
+import com.salcedoFawcett.services.mailService.domain.model.ElectronicDocumentEmailInfo;
 
-    private String user;
-    private String url;
+import java.io.InputStream;
 
-    public ChangePasswordMessage(String title, String addressee, String user, String url) {
+public class ElectronicDocumentMessage extends Message {
+
+    private ElectronicDocumentEmailInfo info;
+
+    public ElectronicDocumentMessage() {
+        super();
+    }
+
+    public ElectronicDocumentMessage(String title, String addressee, ElectronicDocumentEmailInfo info) {
         super(title, addressee);
-        this.user = user;
-        this.url = url;
+        this.attachment = true;
+        this.info = info;
+        this.attachmentPath = info.getFilePath();
         this.setHtmlTemplate();
     }
 
@@ -16,7 +24,6 @@ public class ChangePasswordMessage extends Message{
     public void setTitle(String title) {
         this.title = title;
     }
-
     @Override
     public void setHtmlTemplate() {
         this.htmlTemplate = " <table role=\"presentation\" style=\"width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;\">\n" +
@@ -36,15 +43,8 @@ public class ChangePasswordMessage extends Message{
                 "                       <table role=\"presentation\" style=\"width:100%;border-collapse:collapse;border:0;border-spacing:0;\">\n" +
                 "                           <tr>\n" +
                 "                               <td style=\"padding:0 0 36px 0;color:#153643;\" >\n" +
-                "                                   <h1 style=\"font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;\" >Cambio de contraseña</h1>\n" +
-                "                                   <p style=\" margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;\" >Mediante el presente correo se atiende a la solicitud de cambio de contraseña para el usuario "+this.user+"</p>\n" +
-                "                               </td>\n" +
-                "                           </tr>\n" +
-                "                           <tr>\n" +
-                "                               <td align=\"center\" style=\"padding:0 0 36px 0;\">\n" +
-                "                                   <a href=\""+this.url+"\" style=\"-webkit-appearance: button;-moz-appearance: button;appearance: button;text-decoration: none;color:#001720;background:#CEAFA3;padding: 13px;font-family:Arial,sans-serif;font-size:13px\">\n" +
-                "                                       Cambiar contraseña\n" +
-                "                                   </a>\n" +
+                "                                   <h1 style=\"font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;\" >"+this.info.getDocumentType()+"</h1>\n" +
+                "                                   <p style=\" margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;\" >Mediante el presente correo se notifica al cliente <strong>"+this.info.getCustomer()+"</strong> la generacion del documento electronico. Para cualquier inquietud sobre este docuemnto, por favor comunicarse a el siguiente correo electronico <strong>"+this.info.getEmailContact()+"</strong></p>\n" +
                 "                               </td>\n" +
                 "                           </tr>\n" +
                 "                       </table>\n" +
@@ -55,9 +55,20 @@ public class ChangePasswordMessage extends Message{
                 "   </tr>\n" +
                 "</table>\n";
     }
-
     @Override
     public void setAddressee(String addressee) {
         this.addressee = addressee;
+    }
+    @Override
+    public boolean isAttachment() {
+        return this.attachment;
+    }
+    @Override
+    public String getAttachmentPath() {
+        return this.attachmentPath;
+    }
+    @Override
+    public String getFileName() {
+        return this.info.getFileName();
     }
 }

@@ -1,5 +1,7 @@
 package com.salcedoFawcett.services.mailService.domain.model;
 
+import com.salcedoFawcett.services.mailService.domain.model.message.Message;
+
 public class EmailStructure {
 
     protected String to;
