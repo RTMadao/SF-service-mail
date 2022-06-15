@@ -63,7 +63,7 @@ public class EmailService {
     public void sendNewUserChangePasswordEmail(String username) throws MessagingException, IOException {
         SecureUser user = userClient.getUserByusername(username).getBody();
         String token = securityClient.generateToken(username).getBody();
-        SetNewUserPasswordMessage msg = new SetNewUserPasswordMessage("Cambio contraseña Usuario nuevo - Salcedo & Fawcett",user.getEmail(),user.getName(),"https://localhost:8080/change-password/new-user/"+user.getId()+"/"+token);
+        SetNewUserPasswordMessage msg = new SetNewUserPasswordMessage("Cambio contraseña Usuario nuevo - Salcedo & Fawcett",user.getEmail(),user.getName(),"http://localhost:8080/change-password/new-user/"+user.getId()+"/"+token);
         this.sendmail(msg);
     }
 
@@ -75,7 +75,7 @@ public class EmailService {
     public void sendChangePasswordEmail(String username) throws MessagingException, IOException {
         SecureUser user = userClient.getUserByusername(username).getBody();
         String token = securityClient.generateToken(username).getBody();
-        ChangePasswordMessage msg = new ChangePasswordMessage("Cambio contraseña Usuario nuevo - Salcedo & Fawcett",user.getEmail(),user.getName(),"https://localhost:8080/change-password/new-user/"+user.getId()+"/"+token);
+        ChangePasswordMessage msg = new ChangePasswordMessage("Cambio contraseña Usuario - Salcedo & Fawcett",user.getEmail(),user.getName(),"http://localhost:8080/change-password/new-user/"+user.getId()+"/"+token);
         this.sendmail(msg);
     }
 

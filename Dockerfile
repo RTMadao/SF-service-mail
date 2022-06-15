@@ -1,6 +1,6 @@
 FROM openjdk:11-jre-slim
 
-COPY build/libs/mailService-0.5.0-SNAPSHOT.jar home/spring/salcedo_fawcett/mail_service.jar
+COPY build/libs/mailService-1.0.0-SNAPSHOT.jar home/spring/salcedo_fawcett/mail_service.jar
 EXPOSE 3004
 
 # Add docker-compose-wait tool -------------------
